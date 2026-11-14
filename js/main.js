@@ -16,22 +16,23 @@ primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
   burger.setAttribute('aria-expanded', false);
 }));
 
-// Before / after slider
-const baSlider = document.getElementById('ba-slider');
-const baAfter = document.getElementById('ba-after-img');
-baSlider.addEventListener('input', e => {
-  baAfter.style.clipPath = `inset(0 0 0 ${e.target.value}%)`;
-});
-document.querySelectorAll('.ba-dot').forEach(dot => {
-  dot.addEventListener('click', () => {
-    document.querySelectorAll('.ba-dot').forEach(d => d.classList.remove('active'));
-    dot.classList.add('active');
-    document.getElementById('ba-before-img').src = `https://images.unsplash.com/photo-${dot.dataset.b}?q=80&w=1400&auto=format&fit=crop`;
-    baAfter.src = `https://images.unsplash.com/photo-${dot.dataset.a}?q=80&w=1400&auto=format&fit=crop`;
-    baSlider.value = 50;
-    baAfter.style.clipPath = 'inset(0 0 0 50%)';
+  // Before / after slider
+  const baSlider = document.getElementById('ba-slider');
+  const baAfter = document.getElementById('ba-after-img');
+  baSlider.addEventListener('input', e => {
+    baAfter.style.clipPath = `inset(0 0 0 ${e.target.value}%)`;
   });
-});
+  document.querySelectorAll('.ba-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.ba-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+      document.getElementById('ba-before-img').src = `assets/image/${dot.dataset.b}.jpeg`;
+      baAfter.src = `assets/image/${dot.dataset.a}.jpeg`;
+      document.getElementById('ba-caption').textContent = dot.dataset.caption;
+      baSlider.value = 50;
+      baAfter.style.clipPath = 'inset(0 0 0 50%)';
+    });
+  });
 
 // Gallery filters
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -66,7 +67,3 @@ const io = new IntersectionObserver((entries) => {
   entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('in'); });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-
-
-
